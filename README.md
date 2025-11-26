@@ -1,13 +1,13 @@
-Fullstack CI/CD Infrastructure — Docker, GitHub Actions, Terraform, AWS Fargate & CloudFront
+# Fullstack CI/CD Infrastructure — Docker, GitHub Actions, Terraform, AWS Fargate & CloudFront
 
 This repository contains a complete, production-ready CI/CD pipeline and cloud infrastructure for a fullstack application (FastAPI backend + React frontend). The architecture is automated end-to-end using Docker, GitHub Actions, and Terraform, deploying to AWS Fargate (backend) and AWS S3 + CloudFront (frontend).
 
-🚀 Architecture Overview
-Backend (FastAPI → AWS Fargate)
+## Architecture Overview
+### Backend (FastAPI → AWS Fargate)
 
-Dockerized FastAPI backend
+#### Dockerized FastAPI backend
 
-GitHub Actions performs:
+#### GitHub Actions performs:
 
 Lint & Unit tests
 
@@ -17,7 +17,7 @@ Tag image with commit SHA
 
 Push to Docker Hub
 
-Terraform builds:
+#### Terraform builds:
 
 VPC
 
@@ -35,11 +35,11 @@ Security groups
 
 IAM roles
 
-Frontend (React → S3 + CloudFront)
+### Frontend (React → S3 + CloudFront)
 
-React app built with npm run build
+#### React app built with npm run build
 
-Terraform provisions:
+#### Terraform provisions:
 
 Public S3 static hosting bucket
 
@@ -49,14 +49,14 @@ CloudFront Distribution
 
 S3 bucket policy (public read)
 
-Frontend deployed by:
+#### Frontend deployed by:
 
 Manual: aws s3 sync build/ s3://<bucket>
 
 OR via CI/CD
 
-🔧 CI/CD Workflows
-1. Backend CI/CD (GitHub Actions)
+##🔧 CI/CD Workflows
+### 1. Backend CI/CD (GitHub Actions)
 
 Runs on every push:
 
@@ -72,7 +72,7 @@ Push to Docker Hub
 
 Trigger Terraform apply to update Fargate deployment
 
-2. Frontend CI/CD
+### 2. Frontend CI/CD
 
 Install Node dependencies
 
@@ -84,7 +84,7 @@ Sync build to S3 bucket
 
 Invalidate CloudFront cache
 
-🐳 Docker Setup
+###🐳 Docker Setup
 Backend Dockerfile
 
 Uses multi-stage build for optimized runtime image:
@@ -101,14 +101,14 @@ Frontend Dockerfile (optional)
 
 Not used for AWS S3 deployment but included for local Docker Compose setups.
 
-🧪 Testing
+###🧪 Testing
 
 Backend: pytest
 Frontend: React Testing Library + Jest
 
 Both run automatically in CI.
 
-🌩️ AWS Infrastructure (Terraform)
+###🌩️ AWS Infrastructure (Terraform)
 
 The repo contains:
 
@@ -144,7 +144,7 @@ Frontend Deployment Variables
 
 bucket_name: unique S3 bucket for static hosting
 
-🧭 Deployment Flow
+### Deployment Flow
 Backend
 cd terraform/backend-fargate
 terraform init
@@ -156,7 +156,7 @@ cd frontend
 npm run build
 aws s3 sync build/ s3://<bucket-name> --delete
 
-🌐 Outputs
+###🌐Outputs
 
 After Terraform apply:
 
@@ -174,7 +174,7 @@ S3 website URL
 
 CloudFront domain
 
-🛡️ Blue/Green Ready
+###🛡️Blue/Green Ready
 
 The backend infrastructure supports blue/green:
 
@@ -186,7 +186,7 @@ Shift ALB target group
 
 Destroy inactive service
 
-✔️ Status
+### ✔️ Status
 
 This project successfully demonstrates:
 
